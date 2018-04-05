@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-public class MyGreetingController {
+public class MyEndpointsController {
 
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
@@ -72,7 +72,7 @@ public class MyGreetingController {
     }
 
     // If the name of the method argument matches the name of the path variable exactly, then this can be simplified by using @PathVariable with no value:
-    @RequestMapping(value = "/ex/foos/param-without-name/{id}", method = GET)
+    @RequestMapping(value = "/ex/foos/param-without-name/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getFoosByPathWithoutParamName(
       @PathVariable String id) {
