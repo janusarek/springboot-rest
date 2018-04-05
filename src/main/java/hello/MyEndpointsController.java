@@ -72,6 +72,8 @@ public class MyEndpointsController {
     }
 
     // If the name of the method argument matches the name of the path variable exactly, then this can be simplified by using @PathVariable with no value:
+    // Test curl command (with basic authentication)
+    // curl -i -X GET -u user:password localhost:8080/ex/foos/param-without-name/104
     @RequestMapping(value = "/ex/foos/param-without-name/{id}", method = RequestMethod.GET)
     @ResponseBody
     public String getFoosByPathWithoutParamName(
