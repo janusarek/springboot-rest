@@ -17,8 +17,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user")
-          .password("{noop}password").roles("USER");
+        // Later check inMemoryAuthentication with hashed password.
+        // auth.inMemoryAuthentication().withUser("user")
+        //   .password("{noop}password").roles("USER");
         // {noop} prefix forces usage of NoOpPasswordEncoder - test password encoder which does not encrypt passwords:
         // https://stackoverflow.com/questions/46999940/spring-boot-passwordencoder-error
   }
