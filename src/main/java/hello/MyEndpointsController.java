@@ -83,4 +83,12 @@ public class MyEndpointsController {
         // @PathVariable long id
     }
 
+    @RequestMapping(
+      value = { "/", "/home" },
+      method = RequestMethod.GET)
+    @ResponseBody
+    public String getMainEndpoint() {
+        return "Main endpoint, without athentication";
+    }
+
 }
