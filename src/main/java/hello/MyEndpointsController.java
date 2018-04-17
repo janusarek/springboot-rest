@@ -85,10 +85,20 @@ public class MyEndpointsController {
 
     @RequestMapping(
       value = { "/", "/home" },
-      method = RequestMethod.GET)
+      method = RequestMethod.GET
+    )
     @ResponseBody
     public String getMainEndpoint() {
         return "Main endpoint, without athentication";
+    }
+
+    @RequestMapping(
+      value = { "/admin/testEndpoint" },
+      method = RequestMethod.GET
+    )
+    @ResponseBody
+    public String getAdminOnlyEndpoint() {
+        return "Admin only endpoint";
     }
 
 }
