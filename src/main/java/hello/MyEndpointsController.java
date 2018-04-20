@@ -101,4 +101,13 @@ public class MyEndpointsController {
         return "Admin only endpoint";
     }
 
+    @RequestMapping(
+      value = { "/normal_user/testEndpoint" },
+      method = RequestMethod.GET
+    )
+    @ResponseBody
+    public String getNormalUserEndpoint() {
+        return "Test user-role endpoint";
+    }
+
 }
