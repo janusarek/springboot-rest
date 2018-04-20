@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import javax.sql.DataSource;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,17 +28,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
   	// ensure the passwords are encoded properly
-  	UserBuilder users = User.withDefaultPasswordEncoder();
+  	// UserBuilder users = User.withDefaultPasswordEncoder();
   	auth
   		.jdbcAuthentication()
   			.dataSource(dataSource)
-        .withUser(users.username("user").password("password").roles("USER"))
-        .withUser(users.username("admin").password("password").roles("USER","ADMIN"))
-        .withUser(users.username("foo").password("bar2").roles("USER"));
+        .passwordEncoder(new BCryptPasswordEncoder())
+        .usersByUsernameQuery("select username, password, enabled from users where username=?")
+        .authoritiesByUsernameQuery("select username, authority from authorities where username=?");
 
-    // TODO: App will try to make this users on every start. Try to add user here only if none exists.
-
-    // auth.withDefaultSchema() can often be seen in online tutorial, but it will probably work only with DB like H2
+        // TODO: App will try to make this users on every start. Try to add user here only if none exists.
+        // .withUser(users.username("user").password("password").roles("USER"))
+        // .withUser(users.username("admin").password("password").roles("USER","ADMIN"))
+        // auth.withDefaultSchema() can often be seen in online tutorial, but it will probably work only with DB like H2
   }
 /*
   @Autowired
