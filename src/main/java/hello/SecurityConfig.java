@@ -32,11 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   	auth
   		.jdbcAuthentication()
   			.dataSource(dataSource)
-        .passwordEncoder(new BCryptPasswordEncoder())
-        .usersByUsernameQuery("select username, password, enabled from users where username=?")
-        .authoritiesByUsernameQuery("select username, authority from authorities where username=?");
+        .passwordEncoder(new BCryptPasswordEncoder());
 
         // TODO: App will try to make this users on every start. Try to add user here only if none exists.
+        // .usersByUsernameQuery("select username, password, enabled from users where username=?")
+        // .authoritiesByUsernameQuery("select username, authority from authorities where username=?");
         // .withUser(users.username("user").password("password").roles("USER"))
         // .withUser(users.username("admin").password("password").roles("USER","ADMIN"))
         // auth.withDefaultSchema() can often be seen in online tutorial, but it will probably work only with DB like H2
