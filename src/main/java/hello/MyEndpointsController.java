@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
+import java.math.BigInteger;
+import org.springframework.util.MultiValueMap;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 public class MyEndpointsController {
@@ -108,6 +112,55 @@ public class MyEndpointsController {
     @ResponseBody
     public String getNormalUserEndpoint() {
         return "Test user-role endpoint";
+    }
+
+    // Sample curl (remember about apostrophes around URL, without them only one param will be visible):
+    // curl -i -X GET -u foo:bar 'localhost:8080/getwithmanyparams?id1=111&id2=93242342422354344682&name=.ABC.DE.F%2EGH%2EEA%2E'
+    @RequestMapping(
+      value = "/getwithmanyparams",
+      // params = { "id1", "id2", "name" },
+      method = RequestMethod.GET
+    )
+    public String getObjectWithManyParams(@RequestParam int id1, @RequestParam BigInteger id2, @RequestParam String name) {
+        String message = "ID1: " + String.valueOf(id1) + ", ";
+        message += "ID2: " + String.valueOf(id2) + ", ";
+        message += "Name: " + name;
+        return message;
+    }
+
+    // Many params catched by HttpServletRequest
+    // Sample curl (remember about apostrophes around URL, withou them only one param will be visible)
+    // curl -i -X GET -u foo:bar 'localhost:8080/manyparamsservlet?id1=111&id2=2324234242235434547867889087897954065&name=.ABC.DE.F.GHI%2EJK%2ELMN%2E'
+    @RequestMapping("/manyparamsservlet")
+    public String manyParamsByServletRequest(HttpServletRequest request) {
+        String message = "ID1: " + request.getParameter("id1") + ", ";
+        message += "ID2: " + request.getParameter("id2") + ", ";
+        message += "Name: " + request.getParameter("name");
+
+        return message;
+    }
+
+    // Obtain query params as too different maps
+    // curl -i -X GET -u admin:password 'localhost:8080/paramsasmaps?id1=111&id2=93242342422354344682&name=.ABC.DE.F%2EGH%2EEA%2EL'
+    @RequestMapping(value="/paramsasmaps", method=RequestMethod.GET)
+    public void queryMethod(@RequestParam String id1,
+              @RequestParam Map<String, String> queryParameters,
+              @RequestParam MultiValueMap<String, String> multiMap) {
+        System.out.println("id1=" + id1);
+        System.out.println(queryParameters);
+        System.out.println(multiMap);
+        // Effect:
+        // id1=111
+        // {id1=111, id2=93242342422354344682, name=.ABC.DE.F.GH.EA.}
+        // {id1=[111], id2=[93242342422354344682], name=[.ABC.DE.F.GH.EA.]}
+    }
+
+    // Obtain query params as MultiValueMap
+    // curl -i -X GET -u foo:bar 'localhost:8080/paramsmultimap?id1=111&id2=93242342422354344682&name=.ABC.DE.F%2EGH%2EEA%2E'
+    @RequestMapping(value="/paramsmultimap", method=RequestMethod.GET)
+    public String books(@RequestParam MultiValueMap<String, String> requestParams) {
+      System.out.println(requestParams); // {id1=[111], id2=[93242342422354344682], name=[.ABC.DE.F.GH.EA.]}
+      return "Check Spring log for results!";
     }
 
 }
