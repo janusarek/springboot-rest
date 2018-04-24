@@ -11,6 +11,9 @@ import java.math.BigInteger;
 import org.springframework.util.MultiValueMap;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import org.springframework.http.MediaType;
 
 @RestController
 public class MyEndpointsController {
@@ -127,6 +130,28 @@ public class MyEndpointsController {
         } else {
           return new TestIdsDto.TestIdsDtoBuilder(id1).setId2(id2).setName(name).build();
         }
+    }
+
+    // curl -i -X GET -u foo:bar 'localhost:8080/getlistwithmanyparams?name1=AB.CD&name2=.EF.GH&name3=IJ.KL%2E.'
+    @RequestMapping(
+      value = "/getlistwithmanyparams",
+      method = RequestMethod.GET
+    )
+    public List<TestIdsDto> getObjectWithManyParams(@RequestParam String name1, @RequestParam String name2, @RequestParam() String name3) {
+      List<TestIdsDto> dtos = new ArrayList();
+      dtos.add(new TestIdsDto.TestIdsDtoBuilder(1).setId2(BigInteger.valueOf(1001L)).setName(name1).build());
+      dtos.add(new TestIdsDto.TestIdsDtoBuilder(2).setId2(BigInteger.valueOf(1002L)).setName(name2).build());
+      dtos.add(new TestIdsDto.TestIdsDtoBuilder(3).setId2(BigInteger.valueOf(1003L)).setName(name3).build());
+      return dtos;
+    }
+
+    @RequestMapping(
+      value = "/jsonfromstring",
+      method = RequestMethod.GET,
+      produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public String getJsonFromString() {
+      return "[{\"id1\":1,\"id2\":1001,\"name\":\"AB.CD\"},{\"id1\":2,\"id2\":1002,\"name\":\".EF.GH\"}]";
     }
 
     // Many params catched by HttpServletRequest
