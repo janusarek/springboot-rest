@@ -121,11 +121,12 @@ public class MyEndpointsController {
       // params = { "id1", "id2", "name" },
       method = RequestMethod.GET
     )
-    public String getObjectWithManyParams(@RequestParam int id1, @RequestParam BigInteger id2, @RequestParam(required = false) String name) {
-        String message = "ID1: " + String.valueOf(id1) + ", ";
-        message += "ID2: " + String.valueOf(id2) + ", ";
-        message += "Name: " + name;
-        return message;
+    public TestIdsDto getObjectWithManyParams(@RequestParam int id1, @RequestParam(required = false) BigInteger id2, @RequestParam(required = false) String name) {
+        if (name == null) {
+          return new TestIdsDto.TestIdsDtoBuilder(id1).setId2(id2).build();
+        } else {
+          return new TestIdsDto.TestIdsDtoBuilder(id1).setId2(id2).setName(name).build();
+        }
     }
 
     // Many params catched by HttpServletRequest
