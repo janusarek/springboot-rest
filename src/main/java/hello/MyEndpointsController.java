@@ -121,7 +121,7 @@ public class MyEndpointsController {
       // params = { "id1", "id2", "name" },
       method = RequestMethod.GET
     )
-    public String getObjectWithManyParams(@RequestParam int id1, @RequestParam BigInteger id2, @RequestParam String name) {
+    public String getObjectWithManyParams(@RequestParam int id1, @RequestParam BigInteger id2, @RequestParam(required = false) String name) {
         String message = "ID1: " + String.valueOf(id1) + ", ";
         message += "ID2: " + String.valueOf(id2) + ", ";
         message += "Name: " + name;
