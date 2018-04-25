@@ -14,12 +14,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   protected void configure(HttpSecurity http) throws Exception {
+
       http.authorizeRequests()
         .antMatchers("/","/home").permitAll()
         .antMatchers("/admin/**").hasRole("ADMIN")
         .antMatchers("/normal_user/**").hasRole("USER")
         .anyRequest().authenticated()
-        .and().httpBasic();
+        .and().httpBasic()
+        .and().csrf().disable(); // Disable CSRF protection to allow simple POST requests.
   }
 
   @Autowired
