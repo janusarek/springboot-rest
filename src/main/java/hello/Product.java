@@ -3,11 +3,17 @@ package hello;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.NamedStoredProcedureQuery;
 import javax.persistence.Table;
 import javax.persistence.Id;
 
 @Entity
 @Table(name = "products")
+@NamedStoredProcedureQuery(
+	name = "GetAllProducts",
+	procedureName = "GetAllProducts",
+  resultClasses = { Product.class } // It was needed! Without it cannot be casted exception occured
+)
 public class Product {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)

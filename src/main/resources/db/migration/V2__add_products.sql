@@ -10,3 +10,10 @@ insert into products(name, num_in_stock, category) values
     ('AMD Ryzen 1600', 1000, 'CPU'),
     ('Gigabyte B350', 300, 'Motherboard'),
     ('Asus H110', 400, 'Motherboard');
+
+DELIMITER //
+	CREATE PROCEDURE GetAllProducts()
+	BEGIN
+	SELECT * FROM products;
+	END //
+DELIMITER ;
