@@ -1,0 +1,11 @@
+<!-- This file is not a part of the project itself. It's just a sample SOAP request to send -->
+<!-- curl -u foo:bar [double_hyphen]header "content-type: text/xml" -d @sample_soap_request.xml http://localhost:8080/ws -->
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+				  xmlns:gs="http://spring.io/guides/gs-producing-web-service">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <gs:getCountriesRequest>
+		<gs:currency>EUR</gs:currency>
+	  </gs:getCountriesRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

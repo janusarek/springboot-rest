@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import io.spring.guides.gs_producing_web_service.Country;
 import io.spring.guides.gs_producing_web_service.Currency;
@@ -40,6 +41,30 @@ public class CountryRepository {
 		uk.setPopulation(63705000);
 
 		countries.put(uk.getName(), uk);
+
+		Country portugal = new Country();
+		portugal.setName("Portugal");
+		portugal.setCapital("Lisboa");
+		portugal.setCurrency(Currency.EUR);
+		portugal.setPopulation(10379573);
+
+		countries.put(portugal.getName(), portugal);
+
+		Country germany = new Country();
+		germany.setName("Germany");
+		germany.setCapital("Berlin");
+		germany.setCurrency(Currency.EUR);
+		germany.setPopulation(82800000);
+
+		countries.put(germany.getName(), germany);
+
+		Country montenegro = new Country();
+		montenegro.setName("Montenegro");
+		montenegro.setCapital("Podgorica");
+		montenegro.setCurrency(Currency.EUR);
+		montenegro.setPopulation(642550);
+
+		countries.put(montenegro.getName(), montenegro);
 	}
 
 	public Country findCountry(String name) {
@@ -49,5 +74,16 @@ public class CountryRepository {
 
 	public List<Country> getAllCountries() {
 		return new ArrayList<Country>(countries.values());
+	}
+
+	public List<Country> getCountriesByCurrency(Currency currency) {
+		ArrayList<Country> countriesFiltered = new ArrayList<>();
+		for (Country c : countries.values()) {
+			if (c.getCurrency() == currency) {
+				countriesFiltered.add(c);
+			}
+		}
+
+		return new ArrayList<Country>(countriesFiltered);
 	}
 }

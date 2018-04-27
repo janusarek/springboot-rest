@@ -10,6 +10,8 @@ import io.spring.guides.gs_producing_web_service.GetCountryRequest;
 import io.spring.guides.gs_producing_web_service.GetCountryResponse;
 import io.spring.guides.gs_producing_web_service.GetAllCountriesRequest;
 import io.spring.guides.gs_producing_web_service.GetAllCountriesResponse;
+import io.spring.guides.gs_producing_web_service.GetCountriesRequest;
+import io.spring.guides.gs_producing_web_service.GetCountriesResponse;
 
 @Endpoint
 public class CountryEndpoint {
@@ -36,6 +38,15 @@ public class CountryEndpoint {
 	public GetAllCountriesResponse getCountry(@RequestPayload GetAllCountriesRequest request) {
 		GetAllCountriesResponse response = new GetAllCountriesResponse();
 		response.setCountries(countryRepository.getAllCountries());
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountriesRequest")
+	@ResponsePayload
+	public GetCountriesResponse getCountries(@RequestPayload GetCountriesRequest request) {
+		GetCountriesResponse response = new GetCountriesResponse();
+		response.setCountries(countryRepository.getCountriesByCurrency(request.getCurrency()));
 
 		return response;
 	}

@@ -32,6 +32,22 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getCountriesRequest">
+        <xs:complexType>
+            <xs:sequence>
+              <xs:element name="currency" type="tns:currency"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getCountriesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="country" type="tns:country" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:complexType name="country">
         <xs:sequence>
             <xs:element name="name" type="xs:string"/>
