@@ -3,6 +3,8 @@ package hello;
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 import io.spring.guides.gs_producing_web_service.Country;
 import io.spring.guides.gs_producing_web_service.Currency;
@@ -43,5 +45,9 @@ public class CountryRepository {
 	public Country findCountry(String name) {
 		Assert.notNull(name, "The country's name must not be null");
 		return countries.get(name);
+	}
+
+	public List<Country> getAllCountries() {
+		return new ArrayList<Country>(countries.values());
 	}
 }

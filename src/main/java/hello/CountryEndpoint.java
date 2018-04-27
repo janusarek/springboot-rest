@@ -8,6 +8,8 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import io.spring.guides.gs_producing_web_service.GetCountryRequest;
 import io.spring.guides.gs_producing_web_service.GetCountryResponse;
+import io.spring.guides.gs_producing_web_service.GetAllCountriesRequest;
+import io.spring.guides.gs_producing_web_service.GetAllCountriesResponse;
 
 @Endpoint
 public class CountryEndpoint {
@@ -25,6 +27,15 @@ public class CountryEndpoint {
 	public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
 		GetCountryResponse response = new GetCountryResponse();
 		response.setCountry(countryRepository.findCountry(request.getName()));
+
+		return response;
+	}
+
+	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllCountriesRequest")
+	@ResponsePayload
+	public GetAllCountriesResponse getCountry(@RequestPayload GetAllCountriesRequest request) {
+		GetAllCountriesResponse response = new GetAllCountriesResponse();
+		response.setCountries(countryRepository.getAllCountries());
 
 		return response;
 	}
