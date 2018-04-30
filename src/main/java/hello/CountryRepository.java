@@ -10,6 +10,8 @@ import io.spring.guides.gs_producing_web_service.Country;
 import io.spring.guides.gs_producing_web_service.Currency;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import java.math.BigInteger;
+import java.util.stream.Stream;
 
 @Component
 public class CountryRepository {
@@ -82,4 +84,19 @@ public class CountryRepository {
 				.filter(c -> c.getCurrency() == currency)
 				.collect(toList());
 	}
+
+	public List<Country> getCountries(Currency currency, BigInteger minPopulation) {
+		Stream<Country> countriesFiltered = countries
+				.values()
+				.stream()
+				.filter(c -> c.getCurrency() == currency);
+
+		if (minPopulation != null) {
+			countriesFiltered = countriesFiltered.filter(c -> BigInteger.valueOf(c.getPopulation()).compareTo(minPopulation) >= 0 );
+		}
+
+		return countriesFiltered.collect(toList());
+	}
+
+
 }

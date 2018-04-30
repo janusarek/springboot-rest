@@ -36,6 +36,7 @@
         <xs:complexType>
             <xs:sequence>
               <xs:element name="currency" type="tns:currency"/>
+              <xs:element name="minPopulation" type="xs:integer"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

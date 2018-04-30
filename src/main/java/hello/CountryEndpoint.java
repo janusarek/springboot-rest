@@ -46,7 +46,7 @@ public class CountryEndpoint {
 	@ResponsePayload
 	public GetCountriesResponse getCountries(@RequestPayload GetCountriesRequest request) {
 		GetCountriesResponse response = new GetCountriesResponse();
-		response.setCountries(countryRepository.getCountriesByCurrency(request.getCurrency()));
+		response.setCountries(countryRepository.getCountries(request.getCurrency(), request.getMinPopulation()));
 
 		return response;
 	}

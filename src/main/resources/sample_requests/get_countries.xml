@@ -6,6 +6,7 @@
    <soapenv:Body>
       <gs:getCountriesRequest>
 		<gs:currency>EUR</gs:currency>
+		<gs:minPopulation>30100200</gs:minPopulation>
 	  </gs:getCountriesRequest>
    </soapenv:Body>
 </soapenv:Envelope>
