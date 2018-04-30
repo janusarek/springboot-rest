@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
+import static java.util.stream.Collectors.toList;
 import io.spring.guides.gs_producing_web_service.Country;
 import io.spring.guides.gs_producing_web_service.Currency;
 import org.springframework.stereotype.Component;
@@ -77,13 +76,10 @@ public class CountryRepository {
 	}
 
 	public List<Country> getCountriesByCurrency(Currency currency) {
-		ArrayList<Country> countriesFiltered = new ArrayList<>();
-		for (Country c : countries.values()) {
-			if (c.getCurrency() == currency) {
-				countriesFiltered.add(c);
-			}
-		}
-
-		return new ArrayList<Country>(countriesFiltered);
+		return countries
+				.values()
+				.stream()
+				.filter(c -> c.getCurrency() == currency)
+				.collect(toList());
 	}
 }
