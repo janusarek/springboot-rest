@@ -86,6 +86,8 @@ public class CountryRepository {
 	}
 
 	public List<Country> getCountries(Currency currency, BigInteger minPopulation) {
+		Assert.notNull(currency, "The currency parameter is required");
+
 		Stream<Country> countriesFiltered = countries
 				.values()
 				.stream()
