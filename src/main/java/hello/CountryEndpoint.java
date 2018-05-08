@@ -6,16 +6,16 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import io.spring.guides.gs_producing_web_service.GetCountryRequest;
-import io.spring.guides.gs_producing_web_service.GetCountryResponse;
-import io.spring.guides.gs_producing_web_service.GetAllCountriesRequest;
-import io.spring.guides.gs_producing_web_service.GetAllCountriesResponse;
-import io.spring.guides.gs_producing_web_service.GetCountriesRequest;
-import io.spring.guides.gs_producing_web_service.GetCountriesResponse;
+import hello.soap.countries.GetCountryRequest;
+import hello.soap.countries.GetCountryResponse;
+import hello.soap.countries.GetAllCountriesRequest;
+import hello.soap.countries.GetAllCountriesResponse;
+import hello.soap.countries.GetCountriesRequest;
+import hello.soap.countries.GetCountriesResponse;
 
 @Endpoint
 public class CountryEndpoint {
-	private static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
+	private static final String NAMESPACE_URI = "http://hello/SOAP/countries";
 
 	private CountryRepository countryRepository;
 
