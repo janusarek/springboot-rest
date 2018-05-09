@@ -68,7 +68,7 @@ public class CountryRepository {
 		montenegro.setCapital("Podgorica");
 		montenegro.setCurrency("EUR");
 		montenegro.setPopulation(642550);
-		germany.setServerID(9223372036854775804L);
+		montenegro.setServerID(9223372036854775804L);
 
 		countries.put(montenegro.getName(), montenegro);
 	}
@@ -102,10 +102,8 @@ public class CountryRepository {
 			countriesFiltered = countriesFiltered.filter(c -> BigInteger.valueOf(c.getPopulation()).compareTo(minPopulation) >= 0 );
 		}
 
-		// TODO: Filter by serverID
 		if (serverIds.size() > 0) {
-			System.out.println("Filtering by server id is not yet applied. Values of serverID:");
-			System.out.println(serverIds);
+			countriesFiltered = countriesFiltered.filter(c -> serverIds.contains(c.getServerID()));
 		}
 
 		return countriesFiltered.collect(toList());
