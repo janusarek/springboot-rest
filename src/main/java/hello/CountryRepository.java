@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ArrayList;
 import static java.util.stream.Collectors.toList;
 import hello.soap.countries.Country;
-import hello.soap.countries.Currency;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import java.math.BigInteger;
@@ -22,48 +21,54 @@ public class CountryRepository {
 		Country spain = new Country();
 		spain.setName("Spain");
 		spain.setCapital("Madrid");
-		spain.setCurrency(Currency.EUR);
+		spain.setCurrency("EUR");
 		spain.setPopulation(46704314);
+		spain.setServerID(9223372036854775807L);
 
 		countries.put(spain.getName(), spain);
 
 		Country poland = new Country();
 		poland.setName("Poland");
 		poland.setCapital("Warsaw");
-		poland.setCurrency(Currency.PLN);
+		poland.setCurrency("PLN");
 		poland.setPopulation(38186860);
+		poland.setServerID(9223372036854775806L);
 
 		countries.put(poland.getName(), poland);
 
 		Country uk = new Country();
 		uk.setName("United Kingdom");
 		uk.setCapital("London");
-		uk.setCurrency(Currency.GBP);
+		uk.setCurrency("GBP");
 		uk.setPopulation(63705000);
+		uk.setServerID(9223372036854775805L);
 
 		countries.put(uk.getName(), uk);
 
 		Country portugal = new Country();
 		portugal.setName("Portugal");
 		portugal.setCapital("Lisboa");
-		portugal.setCurrency(Currency.EUR);
+		portugal.setCurrency("EUR");
 		portugal.setPopulation(10379573);
+		portugal.setServerID(9223372036854775807L);
 
 		countries.put(portugal.getName(), portugal);
 
 		Country germany = new Country();
 		germany.setName("Germany");
 		germany.setCapital("Berlin");
-		germany.setCurrency(Currency.EUR);
+		germany.setCurrency("EUR");
 		germany.setPopulation(82800000);
+		germany.setServerID(9223372036854775806L);
 
 		countries.put(germany.getName(), germany);
 
 		Country montenegro = new Country();
 		montenegro.setName("Montenegro");
 		montenegro.setCapital("Podgorica");
-		montenegro.setCurrency(Currency.EUR);
+		montenegro.setCurrency("EUR");
 		montenegro.setPopulation(642550);
+		germany.setServerID(9223372036854775804L);
 
 		countries.put(montenegro.getName(), montenegro);
 	}
@@ -77,7 +82,7 @@ public class CountryRepository {
 		return new ArrayList<Country>(countries.values());
 	}
 
-	public List<Country> getCountriesByCurrency(Currency currency) {
+	public List<Country> getCountriesByCurrency(String currency) {
 		return countries
 				.values()
 				.stream()
@@ -85,13 +90,13 @@ public class CountryRepository {
 				.collect(toList());
 	}
 
-	public List<Country> getCountries(Currency currency, BigInteger minPopulation) {
+	public List<Country> getCountries(String currency, BigInteger minPopulation) {
 		Assert.notNull(currency, "The currency parameter is required");
 
 		Stream<Country> countriesFiltered = countries
 				.values()
 				.stream()
-				.filter(c -> c.getCurrency() == currency);
+				.filter(c -> c.getCurrency().equals(currency));
 
 		if (minPopulation != null) {
 			countriesFiltered = countriesFiltered.filter(c -> BigInteger.valueOf(c.getPopulation()).compareTo(minPopulation) >= 0 );

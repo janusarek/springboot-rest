@@ -6,7 +6,7 @@
    <soapenv:Body>
       <ns1:getCountriesRequest>
 		<ns1:currency>EUR</ns1:currency>
-		<ns1:minPopulation>70100200</ns1:minPopulation>
+		<ns1:minPopulation>10100200</ns1:minPopulation>
 	  </ns1:getCountriesRequest>
    </soapenv:Body>
 </soapenv:Envelope>
