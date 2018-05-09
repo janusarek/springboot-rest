@@ -6,7 +6,7 @@
            <xs:sequence>
              <xs:element name="currency" type="xs:string" minOccurs="1" maxOccurs="1"/>
              <xs:element name="minPopulation" type="xs:integer" minOccurs="0" maxOccurs="1"/>
-             <xs:element name="serverID" type="xs:long" minOccurs="0" maxOccurs="1" />
+             <xs:element name="serverID" type="xs:long" minOccurs="0" maxOccurs="unbounded" />
            </xs:sequence>
        </xs:complexType>
     </xs:element>

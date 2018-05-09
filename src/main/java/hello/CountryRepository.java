@@ -90,7 +90,7 @@ public class CountryRepository {
 				.collect(toList());
 	}
 
-	public List<Country> getCountries(String currency, BigInteger minPopulation) {
+	public List<Country> getCountries(String currency, BigInteger minPopulation, List<Long> serverIds) {
 		Assert.notNull(currency, "The currency parameter is required");
 
 		Stream<Country> countriesFiltered = countries
@@ -100,6 +100,12 @@ public class CountryRepository {
 
 		if (minPopulation != null) {
 			countriesFiltered = countriesFiltered.filter(c -> BigInteger.valueOf(c.getPopulation()).compareTo(minPopulation) >= 0 );
+		}
+
+		// TODO: Filter by serverID
+		if (serverIds.size() > 0) {
+			System.out.println("Filtering by server id is not yet applied. Values of serverID:");
+			System.out.println(serverIds);
 		}
 
 		return countriesFiltered.collect(toList());

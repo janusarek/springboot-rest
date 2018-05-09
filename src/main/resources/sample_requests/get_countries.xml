@@ -6,7 +6,9 @@
    <soapenv:Body>
       <ns1:getCountriesRequest>
 		<ns1:currency>EUR</ns1:currency>
-		<ns1:minPopulation>10100200</ns1:minPopulation>
+		<ns1:serverID>9223372036854775807</ns1:serverID>
+		<ns1:serverID>19218</ns1:serverID>
+		<ns1:serverID>9223372036854775801</ns1:serverID>
 	  </ns1:getCountriesRequest>
    </soapenv:Body>
 </soapenv:Envelope>
